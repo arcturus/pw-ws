@@ -3,6 +3,9 @@ const parser = require('./parser.js');
 const jsdom = require('jsdom').jsdom;
 const config = require('../config.js');
 
+const levelup = require('levelup');
+const db = levelup(config.db_file, { valueEncoding: 'json' });
+
 /**
  * Wrapper around the function fetchAndParse that adds
  * two methods for pre and post processing
@@ -22,11 +25,26 @@ function process(url) {
 }
 
 function preProcess(url) {
-  return Promise.resolve(null);
+  return new Promise((resolve) => {
+    db.get(url, (err, value) => {
+      if (err || !value) {
+        resolve(null);
+      } else {
+        resolve(value);
+      }
+    })
+  });
 }
 
 function postProcess(url, data) {
-  return Promise.resolve(data);
+  if (!data || data === {}) {
+    return Promise.resolve(data);
+  }
+  return new Promise((resolve) => {
+    db.put(url, data, (err) => {
+      resolve(data);
+    });
+  });
 }
 
 /**

@@ -1,4 +1,5 @@
 {
   "port": 3000,
-  "fetch_timeout": 5000
+  "fetch_timeout": 5000,
+  "db_file": "./db"
 }
