@@ -6,6 +6,7 @@
 
 const parseHtml = require('magnet-html-parser');
 const app = require('../../../lib/routes/api');
+const cache = require('../../../lib/routes/api/metadata').cache;
 const supertest = require('supertest');
 const assert = require('assert');
 const sinon = require('sinon');
@@ -36,6 +37,7 @@ describe('adaptors', () => {
   afterEach(function() {
     this.sandbox.restore();
     nock.cleanAll();
+    cache.clear();
   });
 
   describe('returns html', function() {

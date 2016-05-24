@@ -6,6 +6,7 @@
 
 const parseHtml = require('magnet-html-parser');
 const app = require('../../../lib/routes/api');
+const cache = require('../../../lib/routes/api/metadata').cache;
 const supertest = require('supertest');
 const assert = require('assert');
 const sinon = require('sinon');
@@ -30,6 +31,7 @@ describe('basic parsing', () => {
   afterEach(function() {
     this.sandbox.restore();
     nock.cleanAll();
+    cache.clear();
   });
 
   it('should give us compatible output with Google PW service', function(done) {
