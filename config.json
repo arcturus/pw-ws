@@ -3,5 +3,9 @@
   "fetch_timeout": 5000,
   "log_level": "error",
   "max_redirects": 5,
-  "user_agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+  "user_agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36",
+  "max_serve_stale": 7200000,
+  "default_cache_ttl": 0,
+  "local_cache_capacity": 5000,
+  "default_max_age": 30
 }
