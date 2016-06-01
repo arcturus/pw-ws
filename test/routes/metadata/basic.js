@@ -126,11 +126,6 @@ describe('basic parsing', () => {
           done();
         });
     });
-
-    it('errors if a title can not be found', function() {
-      assert.ok(this.res.body[0].error);
-      assert.equal(this.res.body[0].error, 'empty');
-    });
   });
 
   it('should unwrap shorted urls', function(done) {
