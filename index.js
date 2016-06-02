@@ -6,6 +6,9 @@
 const config = require('./config');
 const app = require('./app');
 
+// Enable metrics
+require('./lib/utils/metrics');
+
 // start listening
 const port = process.env.PORT || config.port;
 const address = process.env.ADDRESS || config.address || '';
