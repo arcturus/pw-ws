@@ -10,5 +10,6 @@
   "default_max_age": 30,
   "metrics_report_interval": 5000,
   "default_environment": "test",
-  "default_metrics_namespace": "mozilla.magnet"
+  "default_metrics_namespace": "mozilla.magnet",
+  "enable_cors": true
 }
