@@ -11,5 +11,7 @@
   "metrics_report_interval": 5000,
   "default_environment": "test",
   "default_metrics_namespace": "mozilla.magnet",
-  "enable_cors": true
+  "enable_cors": true,
+  "content_service": "http://localhost:3000/",
+  "content_service_apikey": "test"
 }
