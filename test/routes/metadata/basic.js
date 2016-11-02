@@ -419,6 +419,55 @@ describe('basic parsing', () => {
     });
   });
 
+  describe('content service additional data', function() {
+    beforeEach(function(done) {
+      const sites = {
+        objects: [{ url: 'https://example.com' }]
+      };
+      nock('https://example.com')
+        .get('/')
+        .reply(200, '<title>Example</title>', {
+          'Content-Type': 'text/html; charset=utf-8'
+        });
+
+      nock('http://localhost:3000')
+        .post('/v1/search/url', ['https://example.com'])
+        .reply(200, [
+          {
+            id: '4d',
+            short_url: 'https://pm0.io/4d',
+            channel: 'TestChannel',
+            url: 'http://example.com',
+            call_to_action: { call: 'action' },
+            extra_metadata: { image: 'test.jpg' },
+            location: { latitude: 51.5245625, longitude: -0.1362341 },
+            is_virtual: true
+          }
+        ]);
+      supertest(app)
+        .post('/metadata')
+        .send(sites)
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+            return;
+          }
+
+          this.result = res.body;
+          done();
+        });
+    });
+
+    it('should include call_to_action data', function() {
+      assert.deepEqual(this.result[0].call_to_action, { call: 'action' });
+    });
+
+    it('should include extra metadata merged into response', function() {
+      assert.equal(this.result[0].image, 'test.jpg');
+    });
+  });
+
   // Not sure if this is a requirement.
   // Supporting this breaks lots of other things.
   describe.skip('unencoded urls', function() {
