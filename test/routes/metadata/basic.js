@@ -424,6 +424,7 @@ describe('basic parsing', () => {
       const sites = {
         objects: [{ url: 'https://example.com' }]
       };
+
       nock('https://example.com')
         .get('/')
         .reply(200, '<title>Example</title>', {
@@ -444,6 +445,7 @@ describe('basic parsing', () => {
             is_virtual: true
           }
         ]);
+
       supertest(app)
         .post('/metadata')
         .send(sites)
